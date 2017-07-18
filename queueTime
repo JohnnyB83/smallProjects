@@ -1,0 +1,40 @@
+//Will return time for an array of customers to check out with n lines open
+//queueTime([1,1,1,2,2,2,3,3,3,4,4,4], 3); returns 10
+//queueTime([1,5,7], 2); returns 5
+
+function queueTime(customers, n) {
+  var sum = 0;
+  var arr = [];
+  customers.sort(function(a,b) { return a-b });
+  
+  if(n >= customers.length) {
+    arr = customers;
+  }
+  
+  else {
+    for(var i = 0; i < n; i++) {
+      arr.push(customers[i]);
+    }
+  }
+  
+  var j = arr.length;
+  while(j <= customers.length) {
+    for(var k = 0; k < arr.length; k++) {
+      arr[k] -= 1;
+    }
+    arr.sort(function(a,b) { return a-b });
+    console.log(arr);
+    for(var l = 0; l < arr.length; l++) {
+      if(arr[l] === 0) {
+        arr[l] = customers[j];
+        j++;
+      }
+    }
+    sum += 1;
+  }
+  
+  if(sum == 1) {
+    return customers[customers.length-1]+1;
+  }
+  return sum;
+}
