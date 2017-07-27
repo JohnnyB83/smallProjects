@@ -1,0 +1,89 @@
+<html>
+<head>
+</head>
+<body>
+
+<center><canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas></center>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var radius = 100;
+
+function drawCircle() {
+	ctx.beginPath();
+	ctx.strokeStyle = 'black';
+	ctx.arc(150, 150, radius, 0, 2.0 * Math.PI);
+	ctx.closePath();
+	ctx.stroke();
+}
+
+function drawNumbers() {
+  ctx.font = 20 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(var num = 1; num < 13; num++){
+    var ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 150, 150);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+}
+
+function calculateAngle(time) {
+	var angle = (time/60)*360;
+	return angle;
+}
+
+function drawSeconds(time) {
+	var newX = 150 + radius*Math.cos((calculateAngle(time.getSeconds())-90)*(Math.PI/180));
+	var newY = 150 + radius*Math.sin((calculateAngle(time.getSeconds())-90)*(Math.PI/180));
+	drawLine(newX, newY, 'red');
+}
+
+function drawMinutes(time) {
+	var angle = (time.getMinutes()/60)*360; //Start angle
+	var incAngle = (time.getSeconds()/3600)*360; //Increment angle for minutes
+	var newX = 150 + 0.95*radius*Math.cos((calculateAngle(time.getMinutes())+ incAngle -90)*(Math.PI/180));
+	var newY = 150 + 0.95*radius*Math.sin((calculateAngle(time.getMinutes())+ incAngle -90)*(Math.PI/180));
+	drawLine(newX, newY, 'black');
+}
+
+function drawHours(time) { 
+	var angle = (time.getHours()/12)*360;
+	var incAngle = (time.getMinutes()/720)*360;
+	var newX = 150 + 0.75*radius*Math.cos(((time.getHours()/12*360) + incAngle -90)*(Math.PI/180));
+	var newY = 150 + 0.75*radius*Math.sin(((time.getHours()/12*360) + incAngle-90)*(Math.PI/180));
+	drawLine(newX, newY, 'black');
+}
+
+function drawLine(x, y, color) {
+	ctx.beginPath();
+	ctx.moveTo(150,150);
+	ctx.lineTo(x, y);
+	ctx.strokeStyle = color;
+	ctx.closePath();
+	ctx.stroke();
+}
+
+function refresh(sec) {
+	var date = new Date();
+	ctx.clearRect(0, 0, c.width, c.height);
+
+	drawCircle();
+	drawNumbers();
+	drawSeconds(date);
+	drawMinutes(date);
+	drawHours(date);
+}
+
+setInterval(refresh, 500);
+</script> 
+
+</body>
+</html>

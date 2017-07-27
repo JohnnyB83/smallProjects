@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To Do</title>
+	<script type="text/javascript" src="AreaCode.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		.b1 {
+			border: 2px solid grey;
+			margin: auto;
+			max-width: 600px;
+			min-width: 250px;
+		}
+
+		.bar {
+			max-width: 300px;
+			min-width: 100px;
+		}
+
+		.a {
+			padding: 100px;
+		}
+	</style>
+</head>
+<body>
+	<form class="form-inline a">
+	<div class="b1">
+		<label>Area Code</label> <input type="text" id="AreaCode" class="form-control bar" maxlength="3" value="303">
+		<button type="button" class="btn btn-default btn-sm" id="submit" onclick="lookUp()">Search</button>
+		<center><h3></h3></center>
+	</div>
+	</form>
+
+</body>
+</html>
