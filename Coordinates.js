@@ -1,4 +1,4 @@
-//return x and y coords of 1 that is only 1 in row and column give a 2D array
+//return x and y coords of 1 that is only 1 in row and column given a 2D array
 
 function findOne(arr) {
   let solutionArr = []
